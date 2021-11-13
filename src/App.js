@@ -4,13 +4,13 @@ import './App.css';
 let initialState = [
     {
       id: 1,
-      prioridade: 'Normal',
+      prioridade: '1',
       titulo: 'título',
       descricao: 'Batata'
     },
     {
       id: 2,
-      prioridade: 'Normal',
+      prioridade: '1',
       titulo: 'título',
       descricao: 'poTAto'
     },
@@ -30,6 +30,32 @@ function App() {
     };
 
     setAtividades([...atividades, {...atividade}]);
+  }
+
+  function prioridadeLabel(param){
+    switch(param){
+      case '1':
+        return 'Baixa'
+      case '2':
+        return 'Normal'
+      case '3':
+        return 'Alta'
+        default:
+          return 'Não definido'
+    }
+  }
+
+  function prioridadeStyle(param){
+    switch (param) {
+      case '1':
+        return 'grin-beam';
+      case '2':
+        return 'smile';
+      case '3':
+        return 'grimace';
+      default:
+          return 'Não definido';
+    }
   }
 
   return (
@@ -83,8 +109,8 @@ function App() {
                     </h5>
                     <h6>Prioridade: 
                       <span className="ms-1 text-black">
-                        <i className="me-1 far fa-smile"></i>
-                          {ativ.prioridade}
+                        <i className={'me-1 far fa-' + prioridadeStyle(ativ.prioridade)}></i>
+                        {prioridadeLabel(ativ.prioridade)}
                       </span>
                     </h6>
                   </div>
