@@ -53,11 +53,31 @@ function App() {
       </form>
       <div className="mt-3">
             {atividades.map((ativ) => (
-              <div key={ativ.id} className="card mb-2 shadow-sm" style={{width: "18rem"}}>
+              <div key={ativ.id} className="card mb-2 shadow-sm" style={{width: "20rem"}}>
                 <div className="card-body">
-                  <p className="card-text">
-                  {ativ.id} - {ativ.descricao}
-                  </p>
+                  <div className="d-flex justify-content-between">
+                    <h5 className="card-title">
+                    <span className="badge bg-secondary me-1">{ativ.id}</span>
+                     - título
+                    </h5>
+                    <h6>Prioridade: 
+                      <span className="ms-1 text-black">
+                        <i className="me-1 far fa-smile"></i>
+                          Normal
+                      </span>
+                    </h6>
+                  </div>
+                  <p className="card-text"> {ativ.descricao} </p>
+                  <div className="d-flex justify-content-end pt-2 m-0 border-top">
+                    <button className="btn-sm btn btn-outline-info me-2 ">
+                      <i className="fas fa-pen me-2"></i>
+                      Editar
+                    </button>
+                    <button className="btn-sm btn btn-outline-danger">
+                    <i className="fas fa-trash me-2"></i>
+                      Deletar
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
