@@ -10,9 +10,15 @@ let initialState = [
     },
     {
       id: 2,
-      prioridade: '1',
+      prioridade: '2',
       titulo: 'título',
       descricao: 'poTAto'
+    },
+    {
+      id: 3,
+      prioridade: '3',
+      titulo: 'título',
+      descricao: 'teste'
     },
 ];
 
@@ -35,28 +41,29 @@ function App() {
   function prioridadeLabel(param){
     switch(param){
       case '1':
-        return 'Baixa'
+        return 'Baixa';
       case '2':
-        return 'Normal'
+        return 'Normal';
       case '3':
-        return 'Alta'
+        return 'Alta';
         default:
-          return 'Não definido'
-    }
-  }
-
-  function prioridadeStyle(param){
-    switch (param) {
-      case '1':
-        return 'grin-beam';
-      case '2':
-        return 'smile';
-      case '3':
-        return 'grimace';
-      default:
           return 'Não definido';
     }
   }
+
+  function prioridadeStyle(param, icon){
+    switch (param) {
+      case '1':
+        return icon ? 'grin-beam' : 'success';
+      case '2':
+        return icon ? 'smile' : 'dark';
+      case '3':
+        return icon ? 'grimace' : 'danger';
+      default:
+          return 'Não definido';
+    };
+  };
+
 
   return (
     <>
@@ -64,9 +71,11 @@ function App() {
       <div className="col-md-4">
         <label className="form-label">Id</label>
         <input  
-        id="id" 
-        type="text"  
-        className="form-control" 
+          id="id" 
+          type="text"  
+          className="form-control"
+          readOnly 
+          value={Math.max.apply(Math, atividades.map(item => item.id)) + 1}
         />
       </div>
       <div className="col-md-4">
@@ -81,26 +90,26 @@ function App() {
       <div className="col-md-4">
         <label className="form-label">Título</label>
         <input  
-        id="titulo" 
-        type="text"  
-        className="form-control" 
+          id="titulo" 
+          type="text"  
+          className="form-control" 
         />
       </div>
       <div className="col-md-4">
         <label className="form-label">Descrição</label>
         <input  
-        id="descricao" 
-        type="text"  
-        className="form-control" 
+          id="descricao" 
+          type="text"  
+          className="form-control" 
         />
       </div>
       </form>
       <div className="mt-3 ms-2">
       <div className="col-12 ms-2 mb-3">
-        <button className="btn btn-outline-success" onClick={addAtividade} ><i class="fas fa-plus-circle"></i> Atividade</button>
+        <button className="btn btn-outline-info" onClick={addAtividade} ><i className="fas fa-plus-circle"></i> ADICIONE</button>
         </div>
             {atividades.map((ativ) => (
-              <div key={ativ.id} className="card ms-2 mb-2 shadow-sm" style={{width: "20rem"}}>
+              <div key={ativ.id} className={'card ms-2 mb-2 shadow-sm border-' + prioridadeStyle(ativ.prioridade)} >
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
                     <h5 className="card-title">
@@ -108,8 +117,8 @@ function App() {
                      {ativ.titulo}
                     </h5>
                     <h6>Prioridade: 
-                      <span className="ms-1 text-black">
-                        <i className={'me-1 far fa-' + prioridadeStyle(ativ.prioridade)}></i>
+                      <span className={'ms-1 text-' + prioridadeStyle(ativ.prioridade)}>
+                        <i className={'me-1 far fa-' + prioridadeStyle(ativ.prioridade, true)}></i>
                         {prioridadeLabel(ativ.prioridade)}
                       </span>
                     </h6>
